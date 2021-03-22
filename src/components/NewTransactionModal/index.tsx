@@ -1,9 +1,10 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useContext, useState } from 'react'
 import Modal from 'react-modal'
+
 import closeImg from '../../assets/close.svg'
 import incomeImg from '../../assets/income.svg'
 import outcomeImg from '../../assets/outcome.svg'
-import { api } from '../../services/api'
+import { useTransactions } from '../../hooks/useTransactions'
 import { Container, RadioBox, TransactionTypeContainer } from './styles'
 
 interface NewTransactionModalProps {
@@ -15,23 +16,34 @@ export function NewTransactionModal({
   isOpen,
   onRequestClose
 }: NewTransactionModalProps): JSX.Element {
+  const { transactions, createTransaction } = useTransactions()
+
   const [type, setType] = useState('deposit')
   const [title, setTitle] = useState('')
   const [category, setCategory] = useState('')
   const [amount, setAmount] = useState(0)
 
-  function handleCreateNewTransaction(e: FormEvent) {
+  async function handleCreateNewTransaction(e: FormEvent) {
     e.preventDefault()
 
-    const transaction = {
-      type,
+    console.log({
       title,
+      type,
       amount,
-      category,
-      created_at: new Date()
-    }
+      category
+    })
 
-    api.post('/transactions', { transaction })
+    await createTransaction({
+      title,
+      type,
+      amount,
+      category
+    })
+    setTitle('')
+    setCategory('')
+    setAmount(0)
+    setType('deposit')
+    onRequestClose()
   }
 
   return (
@@ -101,4 +113,7 @@ export function NewTransactionModal({
       </Container>
     </Modal>
   )
+}
+function TransactionsContext(TransactionsContext: any) {
+  throw new Error('Function not implemented.')
 }

@@ -22,7 +22,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "prettier/prettier": "error",
+        "prettier/prettier": "warning",
         "multiline-ternary": "off",
         "camelcase": "off",
         "no-case-declarations":"off",

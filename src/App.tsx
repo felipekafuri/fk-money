@@ -1,8 +1,10 @@
+import { useState } from 'react'
+import Modal from 'react-modal'
+
 import { Dashboard } from './components/Dashboard'
 import { Header } from './components/Header'
-import Modal from 'react-modal'
 import { NewTransactionModal } from './components/NewTransactionModal'
-import { useState } from 'react'
+import { TransactionsProvider } from './hooks/useTransactions'
 
 Modal.setAppElement('#root')
 
@@ -20,13 +22,13 @@ export function App(): JSX.Element {
   }
 
   return (
-    <>
+    <TransactionsProvider>
       <NewTransactionModal
         isOpen={isNewTransactionModalOpen}
         onRequestClose={handleCloseNewTransactionModal}
       />
       <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
       <Dashboard />
-    </>
+    </TransactionsProvider>
   )
 }

@@ -1,8 +1,9 @@
+import { createServer, Model } from 'miragejs'
 import React from 'react'
 import ReactDOM from 'react-dom'
+
 import { App } from './App'
 import { GlobalStyle } from './styles/global'
-import { createServer, Model } from 'miragejs'
 
 createServer({
   models: {
@@ -23,7 +24,7 @@ createServer({
         {
           id: 2,
           title: 'Hamburger',
-          amount: 69,
+          amount: 70,
           type: 'withdraw',
           category: 'Comida',
           created_at: new Date()
